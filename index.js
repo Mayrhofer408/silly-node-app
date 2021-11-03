@@ -1,16 +1,17 @@
 const agent = require('superagent');
 const asciify = require('asciify-image');
 
-const DOG_API_URL = 'https://dog.ceo/api/breeds/image/random';
+const DOG_API_URL = 'https://dog.ceo/api';
 
-const getDogImageURL = async () => {
-  const { body: { message: dogUrl }} = await agent.get(DOG_API_URL);
+const getDogByBreedImageUrl = async (breed) => {
+  const dogApiEndpointUrl = `${DOG_API_URL}/breed/${breed}/images/random`;
+  const { body: { message: dogUrl }} = await agent.get(dogApiEndpointUrl);
   return dogUrl;
 };
 
 (async () => {
   // Get a URL for a random image of a dog
-  const dogUrl = await getDogImageURL();
+  const dogUrl = await getDogByBreedImageUrl('bulldog/boston');
 
   // Download the image
   const { body: data } = await agent.get(dogUrl);
