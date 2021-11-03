@@ -48,6 +48,12 @@ const promptForBreed = async (availableBreeds) => {
   return value;
 };
 
+const breedStringToPath = (breed) => {
+  // corgi -> corgi
+  // yorkshire terrier -> terrier/yorkshire
+  return breed.split(' ').reverse().join('/');
+}
+
 (async () => {
   // Get hierarchical dict of all breeds from API
   const breedListAsDict = await getBreedList();
@@ -59,7 +65,8 @@ const promptForBreed = async (availableBreeds) => {
   const pickedBreed = await promptForBreed(breedList);
 
   // Get a URL for a random image of a dog with picked breed from API
-  const dogUrl = await getDogByBreedImageUrl(pickedBreed);
+  const breedPath = breedStringToPath(pickedBreed);
+  const dogUrl = await getDogByBreedImageUrl(breedPath);
 
   // Download the image
   const {body: data} = await agent.get(dogUrl);
