@@ -16,7 +16,9 @@ npm start
 
 ## TODO:
 
-* Fix the critical bug which makes the application not run
+* Implement a typed UserInputError to handle bad user input
 
-* Modify the application to make it show dogs of a specific breed
-
+* Convert the project from CJS to ESM
+  * Native, unflagged support for a while™️
+  * Allows us to `await` in root scope
+  * Documentation: https://nodejs.org/api/esm.html
